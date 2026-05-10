@@ -255,7 +255,7 @@ export default function AboutPage() {
             <ScrollReveal delay={0.2}>
               <p>
                 Our goal is to help our clients increase visibility, strengthen brand identity,
-                and make a lasting impression — wherever in the world they're based.
+                and make a lasting impression — wherever in the world they&apos;re based.
               </p>
             </ScrollReveal>
           </div>
