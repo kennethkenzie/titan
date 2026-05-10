@@ -72,7 +72,7 @@ export function ContactForm() {
         <AnimatedButton type="submit">
           {status === "loading" ? "Sending…" : "Submit brief"}
         </AnimatedButton>
-        {status === "ok" && <p className="text-sm uppercase tracking-widest text-primary">Received — we'll be in touch.</p>}
+        {status === "ok" && <p className="text-sm uppercase tracking-widest text-primary">Received — we&apos;ll be in touch.</p>}
         {status === "err" && <p className="text-sm uppercase tracking-widest text-primary">Something went wrong.</p>}
       </div>
     </motion.form>

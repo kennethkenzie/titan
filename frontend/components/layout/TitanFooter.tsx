@@ -30,7 +30,7 @@ export function TitanFooter() {
               c/o Tytan Group / BQ Magazine Limited
             </p>
             <p className="mt-10 max-w-xl text-display-sm font-bold leading-[1.05] uppercase tracking-[-0.02em] gradient-text">
-              Let's move your brand.
+              Let&apos;s move your brand.
             </p>
             <p className="mt-6 max-w-xl text-sm text-muted leading-relaxed">
               A Creative, marketing, branding, events management, and promotional services agency

@@ -12,15 +12,15 @@ export function CTASection() {
       <div className="absolute inset-0 -z-10 bg-radial-glow opacity-80" />
       <div className="container relative z-10 text-center">
         <ScrollReveal>
-          <p className="text-[11px] uppercase tracking-[0.4em] text-primary mb-8">▍ Let's build something inevitable</p>
+          <p className="text-[11px] uppercase tracking-[0.4em] text-primary mb-8">▍ Let&apos;s build something inevitable</p>
           <h2 className="text-display-lg font-bold uppercase leading-[0.88] tracking-[-0.04em] text-white">
-            Let's move your
+            Let&apos;s move your
             <br />
             <span className="text-[#E50914]">brand.</span>
           </h2>
           <p className="mt-10 max-w-xl mx-auto text-muted text-lg">
-            We partner with a handful of ambitious teams each year. If you're building
-            something serious, we'd like to hear about it.
+            We partner with a handful of ambitious teams each year. If you&apos;re building
+            something serious, we&apos;d like to hear about it.
           </p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
