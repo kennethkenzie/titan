@@ -1,0 +1,31 @@
+# ── Backend ───────────────────────────────────────────────────────────────────
+backend/.env
+backend/.env.backup
+backend/vendor/
+backend/node_modules/
+backend/public/build/
+backend/public/storage
+backend/storage/app/private/
+backend/storage/app/public/uploads/*
+!backend/storage/app/public/uploads/.gitkeep
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/testing/
+backend/storage/framework/views/
+backend/storage/logs/
+backend/bootstrap/cache/*.php
+backend/database/database.sqlite
+backend/_tmp/
+
+# ── Frontend ──────────────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# ── General ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log

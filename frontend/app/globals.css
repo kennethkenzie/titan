@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html, body {
+    background: #050505;
+    color: #fff;
+    font-family: var(--font-poppins), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: #E50914; color: #fff; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-display { font-family: var(--font-display), var(--font-poppins), sans-serif; }
+  .gradient-text {
+    color: #E50914;
+  }
+  .gradient-text-red {
+    color: #E50914;
+  }
+  .noise {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+  .grid-overlay {
+    background-image: linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .mask-fade-b { mask-image: linear-gradient(to bottom, #000 60%, transparent); }
+  .mask-fade-x { mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
+}
+
+/* Parallax scrolling component */
+.parallax {
+  position: relative;
+  width: 100%;
+  background: #050505;
+  color: #fff;
+}
+.parallax__header {
+  position: relative;
+  height: 200vh;
+  overflow: clip;
+}
+.parallax__visuals {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.parallax__black-line-overflow {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 5;
+}
+.parallax__layers {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.parallax__layer-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+.parallax__layer-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  will-change: transform;
+}
+.parallax__title {
+  font-family: var(--font-display), var(--font-poppins), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  font-size: clamp(4rem, 16vw, 18rem);
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  mix-blend-mode: difference;
+}
+.parallax__fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, #050505 90%);
+  pointer-events: none;
+  z-index: 4;
+}
+.parallax__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem;
+  background: #050505;
+}
+.osmo-icon-svg { color: #E50914; }
+.osmo-credits {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.osmo-credits__p-a { color: #fff; }
+.osmo-credits__p-a:hover { color: #E50914; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
