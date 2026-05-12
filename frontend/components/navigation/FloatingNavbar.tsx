@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { MenuToggleIcon } from "@/components/ui/menu-toggle-icon";
 import { cn } from "@/lib/utils";
 
 type NavLink = {
@@ -38,20 +40,25 @@ const SERVICES_CHILDREN = [
 ];
 
 const LINKS: NavLink[] = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About", children: ABOUT_CHILDREN },
-  { href: "/services", label: "Services", children: SERVICES_CHILDREN },
+  { href: "/about", label: "About" },
   { href: "/portfolio", label: "Work" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/blog", label: "Blog" },
+  { href: "/case-studies", label: "Smari Talks" },
+  { href: "/offices", label: "Offices" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
+const LIGHT_BG_ROUTES = ["/offices"];
+
 export function FloatingNavbar() {
+  const pathname = usePathname();
+  const isLightPage = LIGHT_BG_ROUTES.some((r) => pathname === r || pathname?.startsWith(r + "/"));
+  const isWorkPage = pathname === "/portfolio";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState<string | null>(null);
+  const dark = isLightPage || scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -67,24 +74,80 @@ export function FloatingNavbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.2, 0.7, 0.2, 1] }}
         className={cn(
-          "fixed top-3 sm:top-4 z-50 left-3 right-12 sm:left-6 sm:right-24 lg:left-8 lg:right-40",
+          "fixed top-3 sm:top-4 z-50 left-3 right-3 sm:left-4 sm:right-4 lg:left-0 lg:right-0",
           "transition-all duration-500"
         )}
       >
-        <div
-          className={cn(
-            "flex items-center justify-between gap-3 px-3 py-2.5 sm:px-6 sm:py-4 transition-all duration-300",
-            scrolled
-              ? "bg-white border border-white shadow-elevated [&_a]:!text-background [&_button]:!text-background [&_.bg-primary]:!text-white"
-              : "bg-transparent"
-          )}
-        >
-          <Link href="/" className="flex items-center gap-2 group shrink-0">
-            <span className="block w-1.5 h-5 sm:w-2 sm:h-6 bg-primary shadow-glow group-hover:animate-glow-pulse" />
-            <span className="text-display font-bold text-base sm:text-xl tracking-[0.18em] sm:tracking-[0.2em]">SMARI</span>
-          </Link>
+        <div className="lg:hidden">
+          <div
+            className={cn(
+              "grid grid-cols-[1fr_auto] items-center gap-3 px-3 py-2.5 sm:px-6 sm:py-4 transition-all duration-300",
+              scrolled
+                ? "bg-white border border-white shadow-elevated [&_a]:!text-background [&_button]:!text-background"
+                : isLightPage
+                  ? "bg-transparent [&_a]:!text-background [&_button]:!text-background"
+                  : "bg-transparent"
+            )}
+          >
+            <Link href="/" className="flex items-center gap-2 group shrink-0">
+              <span
+                className={cn(
+                  "block w-1.5 h-5 sm:w-2 sm:h-6 shadow-glow group-hover:animate-glow-pulse",
+                  dark ? "bg-primary" : "bg-white"
+                )}
+              />
+              <span
+                className={cn(
+                  "text-display font-bold text-base sm:text-xl tracking-[0.18em] sm:tracking-[0.2em]",
+                  dark ? "text-background" : "text-white"
+                )}
+              >
+                SMARI
+              </span>
+            </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className="flex items-center gap-1 px-2 py-1.5 text-sm font-semibold tracking-[0.1em] whitespace-nowrap"
+              >
+                En
+                <ChevronDown size={12} />
+              </button>
+              <button
+                aria-label="Toggle menu"
+                aria-expanded={open}
+                className="p-1.5 grid place-items-center"
+                onClick={() => setOpen((v) => !v)}
+              >
+                <MenuToggleIcon open={open} className="size-8" duration={500} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden lg:grid lg:grid-cols-2 lg:items-center">
+          {isWorkPage ? (
+            <div />
+          ) : (
+            <div className="flex items-center justify-start pl-8 xl:pl-10">
+              <Link href="/" className="flex items-center gap-2 group shrink-0">
+                <span className={cn("block w-2 h-6 shadow-glow group-hover:animate-glow-pulse", dark ? "bg-primary" : "bg-white")} />
+                <span className={cn("text-display font-bold text-xl tracking-[0.2em]", dark ? "text-background" : "text-white")}>SMARI</span>
+              </Link>
+            </div>
+          )}
+
+          <nav
+            className={cn(
+              "mr-8 xl:mr-10 flex items-center justify-end gap-1 px-6 py-4 transition-all duration-300",
+              scrolled
+                ? "bg-white border border-white shadow-elevated [&_a]:!text-background [&_button]:!text-background"
+                : isLightPage
+                  ? "bg-transparent [&_a]:!text-background [&_button]:!text-background"
+                  : "bg-transparent"
+            )}
+          >
             {LINKS.map((l) =>
               l.children ? (
                 <div
@@ -94,7 +157,7 @@ export function FloatingNavbar() {
                   onMouseLeave={() => setOpenMenu(null)}
                 >
                   <button
-                    className="flex items-center gap-1 px-4 py-2 text-sm uppercase tracking-widest text-muted hover:text-white transition-colors relative group"
+                    className="flex items-center gap-1 px-4 py-2 text-base font-semibold tracking-[0.12em] text-white transition-colors relative group"
                     onClick={() => setOpenMenu((v) => (v === l.href ? null : l.href))}
                     aria-expanded={openMenu === l.href}
                     aria-haspopup="true"
@@ -120,7 +183,7 @@ export function FloatingNavbar() {
                               onClick={() => setOpenMenu(null)}
                               className="group flex flex-col gap-1 px-4 py-3 hover:bg-surface/60 border border-transparent hover:border-border transition-colors rounded-md"
                             >
-                              <span className="text-sm font-semibold uppercase tracking-widest text-white group-hover:text-primary transition-colors">
+                              <span className="text-sm font-semibold tracking-[0.12em] text-white group-hover:text-primary transition-colors">
                                 {c.label}
                               </span>
                               {c.description && (
@@ -137,29 +200,22 @@ export function FloatingNavbar() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="px-4 py-2 text-sm uppercase tracking-widest text-muted hover:text-white transition-colors relative group"
+                  className="px-4 py-2 text-base font-semibold tracking-[0.12em] text-white transition-colors relative group whitespace-nowrap"
                 >
                   {l.label}
                   <span className="absolute left-4 right-4 -bottom-0.5 h-px bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
                 </Link>
               )
             )}
+            {/* Language toggle */}
+            <button
+              type="button"
+              className="ml-3 flex items-center gap-1 px-3 py-2 text-base font-semibold tracking-[0.12em] text-white whitespace-nowrap"
+            >
+              En
+              <ChevronDown size={14} />
+            </button>
           </nav>
-
-          <Link
-            href="/contact"
-            className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-xs uppercase tracking-[0.25em] font-semibold hover:bg-white hover:text-background transition-colors"
-          >
-            Start a project
-          </Link>
-
-          <button
-            aria-label="Toggle menu"
-            className="lg:hidden p-2 border border-border"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
         </div>
       </motion.header>
 
@@ -169,19 +225,19 @@ export function FloatingNavbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-2 sm:inset-x-4 top-16 sm:top-20 z-40 lg:hidden bg-background/95 border border-border backdrop-blur-xl max-h-[calc(100vh-5rem)] overflow-y-auto"
+            className="fixed inset-x-3 sm:inset-x-4 top-[4.25rem] sm:top-20 z-40 lg:hidden border border-neutral-200 bg-white text-neutral-900 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-lg shadow-elevated"
           >
             <nav className="flex flex-col p-4">
               {LINKS.map((l) =>
                 l.children ? (
-                  <div key={l.href} className="border-b border-border last:border-0">
+                  <div key={l.href} className="border-b border-neutral-200 last:border-0">
                     <button
                       onClick={() => setMobileMenu((v) => (v === l.href ? null : l.href))}
-                      className="w-full flex items-center justify-between py-3 px-2 text-sm uppercase tracking-widest"
+                      className="w-full flex items-center justify-between py-3 px-2 text-base font-semibold tracking-[0.12em]"
                       aria-expanded={mobileMenu === l.href}
                     >
                       <span>{l.label}</span>
-                      <ChevronDown size={16} className={cn("transition-transform", mobileMenu === l.href && "rotate-180")} />
+                      <ChevronDown size={16} className={cn("transition-transform shrink-0", mobileMenu === l.href && "rotate-180")} />
                     </button>
                     <AnimatePresence initial={false}>
                       {mobileMenu === l.href && (
@@ -201,7 +257,7 @@ export function FloatingNavbar() {
                                   setOpen(false);
                                   setMobileMenu(null);
                                 }}
-                                className="py-2.5 px-2 text-xs uppercase tracking-widest text-muted hover:text-white border-l border-border hover:border-primary transition-colors"
+                                className="py-2.5 px-2 text-xs tracking-[0.12em] text-neutral-700 border-l border-neutral-200 hover:text-[#E50914] hover:border-[#E50914] transition-colors"
                               >
                                 {c.label}
                               </Link>
@@ -216,7 +272,7 @@ export function FloatingNavbar() {
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="py-3 px-2 text-sm uppercase tracking-widest border-b border-border last:border-0"
+                    className="py-3 px-2 text-base font-semibold tracking-[0.12em] text-neutral-900 border-b border-neutral-200 last:border-0"
                   >
                     {l.label}
                   </Link>

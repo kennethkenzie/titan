@@ -6,7 +6,7 @@
 @section('content')
 
     {{-- Stat cards --}}
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <a href="{{ route('admin.blogs.index') }}"
            class="group rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
             <p class="text-[9px] font-semibold uppercase tracking-[0.4em] text-white/35">Blog Posts</p>
@@ -18,6 +18,12 @@
             <p class="text-[9px] font-semibold uppercase tracking-[0.4em] text-white/35">Projects</p>
             <p class="mt-3 text-4xl font-bold">{{ $projectCount }}</p>
             <p class="mt-1 text-xs text-white/35">{{ $publishedProjects }} published</p>
+        </a>
+        <a href="{{ route('admin.clients.index') }}"
+           class="group rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
+            <p class="text-[9px] font-semibold uppercase tracking-[0.4em] text-white/35">Clients</p>
+            <p class="mt-3 text-4xl font-bold">{{ $clientCount }}</p>
+            <p class="mt-1 text-xs text-white/35">{{ $publishedClients }} published</p>
         </a>
         <a href="{{ route('admin.services.index') }}"
            class="group rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 transition hover:border-red-500/30 hover:bg-white/[0.05]">

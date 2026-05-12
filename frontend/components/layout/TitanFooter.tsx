@@ -1,103 +1,100 @@
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-const NAV = [
-  { title: "Studio", links: [["About", "/about"], ["Services", "/services"], ["Contact", "/contact"]] },
-  { title: "Work", links: [["Portfolio", "/portfolio"], ["Case Studies", "/case-studies"], ["Journal", "/blog"]] },
-  {
-    title: "Contact",
-    links: [
-      ["info@tytangroupbqmagazineltd.com", "mailto:info@tytangroupbqmagazineltd.com"],
-      ["+256 742 445 504", "tel:+256742445504"],
-      ["+256 775 553 164", "tel:+256775553164"],
-      ["Kampala · Brussels", "/contact"],
-    ],
-  },
+const TOP_LINKS = [
+  ["About", "/about"],
+  ["Work", "/portfolio"],
+  ["Offices", "/offices"],
+  ["Smari Talks", "/case-studies"],
+];
+
+const SOCIALS = [
+  ["LinkedIn", "https://linkedin.com"],
+  ["Instagram", "https://instagram.com"],
+  ["Facebook", "https://facebook.com"],
+];
+
+const LEGAL = [
+  ["Imprint", "/imprint"],
+  ["Data Privacy", "/privacy"],
+  ["Cookies Settings", "/cookies"],
 ];
 
 export function TitanFooter() {
   return (
-    <footer className="relative border-t border-border bg-background">
-      <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-      <div className="container py-24 md:py-32">
-        <div className="grid lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-7">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <span className="block w-2 h-12 bg-primary shadow-glow group-hover:animate-glow-pulse" />
-              <span className="text-display-md font-bold uppercase tracking-[-0.03em] leading-none">SMARI CREATIVE</span>
+    <footer className="bg-[#f1f1f1] text-neutral-900">
+      <div className="px-6 md:px-12 lg:px-16 pt-16 pb-8">
+        {/* Top nav links */}
+        <nav className="flex flex-wrap items-center gap-x-10 gap-y-3">
+          {TOP_LINKS.map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-base text-neutral-700 hover:text-[#E50914] transition-colors"
+            >
+              {label}
             </Link>
-            <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-muted">
-              c/o Tytan Group / BQ Magazine Limited
-            </p>
-            <p className="mt-10 max-w-xl text-display-sm font-bold leading-[1.05] uppercase tracking-[-0.02em] gradient-text">
-              Let&apos;s move your brand.
-            </p>
-            <p className="mt-6 max-w-xl text-sm text-muted leading-relaxed">
-              A Creative, marketing, branding, events management, and promotional services agency
-              specialising in corporate identity, creative marketing, pixel-perfect printing,
-              online web solutions, events & support, and audio/visual & motion graphics.
-            </p>
+          ))}
+        </nav>
 
-            {/* Offices */}
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border border-border p-5">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-3">Kampala (HQ)</p>
-                <p className="text-sm text-muted leading-relaxed">
-                  Eagen Mansions, Victoria Towers,<br />
-                  1–13 Jinja Road, Kampala, Uganda
-                </p>
-              </div>
-              <div className="border border-border p-5">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-3">Brussels (EU)</p>
-                <p className="text-sm text-muted leading-relaxed">
-                  243 Boulevard Général Jacques,<br />
-                  1050 Brussels Ixelles, Belgium<br />
-                  <span className="text-[11px]">TVA/BTW 0643.946.772</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-10 flex items-center gap-3">
-              {[Twitter, Instagram, Linkedin, Facebook].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-12 h-12 border border-border flex items-center justify-center hover:bg-primary hover:border-primary transition-colors"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
-            </div>
+        {/* Big CTAs */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
+          <div>
+            <p className="text-2xl md:text-3xl text-neutral-400 font-normal">Let&apos;s talk</p>
+            <Link
+              href="/contact"
+              className="group mt-2 inline-flex items-center gap-3 text-4xl md:text-5xl lg:text-6xl font-bold text-[#E50914] tracking-tight"
+            >
+              Contact
+              <ArrowRight className="h-8 w-8 md:h-10 md:w-10 transition-transform duration-300 group-hover:translate-x-2" />
+            </Link>
           </div>
 
-          <div className="lg:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-10">
-            {NAV.map((col) => (
-              <div key={col.title}>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-5">{col.title}</p>
-                <ul className="space-y-3">
-                  {col.links.map(([label, href]) => (
-                    <li key={label}>
-                      <Link href={href} className="text-sm text-muted hover:text-white transition-colors break-words">
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div>
+            <p className="text-2xl md:text-3xl text-neutral-400 font-normal">Join our team</p>
+            <Link
+              href="/careers"
+              className="group mt-2 inline-flex items-center gap-3 text-4xl md:text-5xl lg:text-6xl font-bold text-[#E50914] tracking-tight"
+            >
+              Careers
+              <ArrowRight className="h-8 w-8 md:h-10 md:w-10 transition-transform duration-300 group-hover:translate-x-2" />
+            </Link>
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[11px] uppercase tracking-[0.3em] text-muted">
-          <p>© {new Date().getFullYear()} Tytan Group / BQ Magazine Limited — All rights reserved.</p>
-          <p>
-            <a
-              href="https://www.tytangroupbqmagazineltd.com"
-              className="hover:text-primary transition-colors"
-            >
-              www.tytangroupbqmagazineltd.com
-            </a>
-          </p>
+        {/* Spacer */}
+        <div className="h-24 md:h-32" />
+
+        {/* Bottom row */}
+        <div className="pt-6 border-t border-neutral-300 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
+            {SOCIALS.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-neutral-700 hover:text-[#E50914] transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
+            {LEGAL.map(([label, href]) => (
+              <Link
+                key={label}
+                href={href}
+                className="text-sm text-neutral-700 hover:text-[#E50914] transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+            <span className="text-sm text-neutral-500">
+              © Smari Creative, c/o Tytan Group / BQ Magazine Limited
+            </span>
+          </div>
         </div>
       </div>
     </footer>

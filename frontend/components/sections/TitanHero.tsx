@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Play } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { SplitTextAnimation } from "@/components/animations/SplitTextAnimation";
 import { GridOverlay } from "@/components/animations/GridOverlay";
-import { AnimatedButton } from "@/components/buttons/AnimatedButton";
 import { cn } from "@/lib/utils";
 
 type Slide =
@@ -55,12 +54,14 @@ export function TitanHero() {
     <section className="relative min-h-[100svh] w-full overflow-hidden">
       {/* Ambient backdrop */}
       <div className="absolute inset-0 -z-10 bg-background" />
+      <div className="absolute inset-y-0 left-0 right-0 lg:right-1/2 -z-10 bg-[#8B0000]" />
       <GridOverlay />
 
       {/* RIGHT — full-bleed carousel covering entire right half (and full width on mobile) */}
       <motion.div
         initial={{ opacity: 0, scale: 1.02 }}
         animate={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: 1.015 }}
         transition={{ duration: 1, delay: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
         className="absolute inset-0 lg:left-1/2 lg:right-0 lg:inset-y-0 z-0"
       >
@@ -94,8 +95,8 @@ export function TitanHero() {
                 <source src={slide.src} type="video/mp4" />
               </video>
             )}
-            {/* Mobile-only dark overlay so headline stays legible. Desktop: image is clean. */}
-            <div className="absolute inset-0 bg-background/70 lg:bg-transparent" />
+            {/* Slight overlay to control contrast and keep the media cinematic. */}
+            <div className="absolute inset-0 bg-background/70 lg:bg-black/18" />
           </motion.div>
         </AnimatePresence>
 
@@ -110,39 +111,24 @@ export function TitanHero() {
 
       {/* LEFT — copy */}
       <div className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[100svh] pt-28 lg:pt-0 pb-24">
-        <div>
+        <motion.div whileHover={{ scale: 1.02, x: 6 }} transition={{ type: "spring", stiffness: 180, damping: 18 }}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-[11px] md:text-xs uppercase tracking-[0.4em] text-primary mb-6"
+            className="text-[11px] md:text-xs uppercase tracking-[0.4em] text-white mb-6"
           >
             ▍ Smari Creative — Kampala · Brussels
           </motion.p>
 
-          <h1 className="text-display font-bold leading-[0.95] tracking-[-0.03em] uppercase">
+          <h1 className="text-display font-bold leading-[0.95] tracking-[-0.03em] uppercase text-white">
             <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <SplitTextAnimation as="span" text="Let's move" />
             </span>
             <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-              <SplitTextAnimation as="span" text="your" delay={0.2} />{" "}
-              <span className="text-[#E50914]">
-                <SplitTextAnimation as="span" text="brand." delay={0.45} />
-              </span>
+              <SplitTextAnimation as="span" text="your brand." delay={0.2} />
             </span>
           </h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.8 }}
-            className="mt-8 max-w-xl text-base md:text-lg text-muted leading-relaxed"
-          >
-            We are a creative, marketing, branding, events management and promotional
-            services agency — specialising in corporate identity, pixel-perfect
-            printing, web solutions, audio/visual and motion graphics for ambitious
-            organisations across East Africa and Europe.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -150,12 +136,12 @@ export function TitanHero() {
             transition={{ duration: 0.9, delay: 1 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <AnimatedButton href="/contact">Start a project</AnimatedButton>
             <Link
-              href="/portfolio"
-              className="inline-flex items-center gap-3 px-5 py-4 border border-border rounded-full text-xs uppercase tracking-[0.3em] hover:border-primary hover:text-primary transition-colors"
+              href="/about"
+              className="group relative inline-flex overflow-hidden border-b border-white/80 pb-2 text-xs uppercase tracking-[0.3em] font-semibold text-white"
             >
-              <Play size={14} className="fill-current" /> Watch reel
+              <span className="relative z-10 px-1 transition-colors duration-300 group-hover:text-background">About Us</span>
+              <span className="absolute inset-0 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover:scale-x-100" />
             </Link>
           </motion.div>
 
@@ -163,12 +149,12 @@ export function TitanHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4, duration: 1 }}
-            className="mt-14 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-muted"
+            className="mt-14 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-white/80"
           >
-            <ArrowDown size={14} className="animate-bounce text-primary" />
+            <ArrowDown size={14} className="animate-bounce text-white" />
             Scroll to explore
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Dots — pinned to bottom, centered over right half on desktop, full width on mobile */}

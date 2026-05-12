@@ -34,8 +34,8 @@ const config: Config = {
         border: "#1F1F22",
       },
       fontFamily: {
-        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-poppins)", "sans-serif"],
+        sans: ["var(--font-fago)", "system-ui", "sans-serif"],
+        display: ["var(--font-fago)", "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-sm": ["clamp(3rem, 6vw, 5rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],

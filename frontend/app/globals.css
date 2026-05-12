@@ -9,7 +9,7 @@
   html, body {
     background: #050505;
     color: #fff;
-    font-family: var(--font-poppins), system-ui, sans-serif;
+    font-family: var(--font-fago), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -18,7 +18,7 @@
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
-  .text-display { font-family: var(--font-display), var(--font-poppins), sans-serif; }
+  .text-display { font-family: var(--font-fago), system-ui, sans-serif; }
   .gradient-text {
     color: #E50914;
   }
@@ -89,7 +89,7 @@
   will-change: transform;
 }
 .parallax__title {
-  font-family: var(--font-display), var(--font-poppins), sans-serif;
+  font-family: var(--font-fago), system-ui, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.04em;

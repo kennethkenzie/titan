@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('projects', Admin\ProjectController::class)->except(['show']);
         Route::patch('projects/{project}/status', [Admin\ProjectController::class, 'toggleStatus'])->name('projects.status');
 
+        Route::resource('clients', Admin\ClientController::class)->except(['show']);
+        Route::patch('clients/{client}/status', [Admin\ClientController::class, 'toggleStatus'])->name('clients.status');
+
         Route::resource('services', Admin\ServiceController::class)->except(['show']);
         Route::patch('services/{service}/status', [Admin\ServiceController::class, 'toggleStatus'])->name('services.status');
 
