@@ -365,7 +365,7 @@ export default function AboutPage() {
           className="relative w-screen aspect-video overflow-hidden bg-neutral-900"
         >
           <video
-            src="/who-we-are.mp4"
+            src="https://ik.imagekit.io/bithub/210929_Meta_Reel_Update_01-1%20(1).mp4"
             autoPlay
             muted
             loop
@@ -471,7 +471,7 @@ export default function AboutPage() {
       >
         {/* Background video */}
         <video
-          src="/who-we-are.mp4"
+          src="https://ik.imagekit.io/bithub/210929_Meta_Reel_Update_01-1%20(1).mp4"
           autoPlay
           muted
           loop
