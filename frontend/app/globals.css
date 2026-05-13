@@ -133,3 +133,66 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* =========================
+   Sterling Gate Kinetic Menu
+   ========================= */
+.fullscreen-menu-container { position: relative; z-index: 80; }
+.nav-overlay-wrapper { position: fixed; inset: 0; display: none; z-index: 80; pointer-events: auto; }
+.nav-overlay-wrapper .overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(2px);
+}
+.menu-content {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(640px, 100%);
+  display: flex; align-items: center; justify-content: flex-start;
+  padding: 6rem 3rem;
+  background: transparent;
+  overflow: hidden;
+}
+.menu-bg { position: absolute; inset: 0; pointer-events: none; }
+.backdrop-layer {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  background: #050505;
+}
+.backdrop-layer.first { background: #E50914; }
+.backdrop-layer.second { background: #8B0000; }
+.menu-bg .backdrop-layer:nth-child(3) { background: #131313; }
+
+.ambient-background-shapes {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.ambient-background-shapes .bg-shape {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity 0.45s ease;
+}
+.ambient-background-shapes .bg-shape.active { opacity: 1; }
+
+.menu-content-wrapper { position: relative; z-index: 2; width: 100%; }
+.menu-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.menu-list-item { overflow: hidden; }
+.nav-link {
+  position: relative;
+  display: inline-flex; align-items: center;
+  padding: 0.4rem 0;
+  color: #ffffff;
+  text-decoration: none;
+  overflow: hidden;
+}
+.nav-link-text {
+  position: relative; z-index: 2;
+  font-family: var(--font-fago), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  transition: transform 0.4s var(--cubic-default, cubic-bezier(0.65,0.05,0,1));
+}
+.nav-link:hover .nav-link-text { transform: translateX(0.5rem); }
+.nav-link-hover-bg { display: none; }
+
+@media (max-width: 768px) {
+  .menu-content { width: 100%; padding: 5rem 1.5rem; }
+  .nav-link-text { font-size: clamp(2.25rem, 12vw, 4rem); }
+}

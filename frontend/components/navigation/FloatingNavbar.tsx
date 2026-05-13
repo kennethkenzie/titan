@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { MenuToggleIcon } from "@/components/ui/menu-toggle-icon";
+import { SterlingGateKineticNavigation } from "@/components/ui/sterling-gate-kinetic-navigation";
 import { cn } from "@/lib/utils";
 
 type NavLink = {
@@ -219,69 +220,12 @@ export function FloatingNavbar() {
         </div>
       </motion.header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-3 sm:inset-x-4 top-[4.25rem] sm:top-20 z-40 lg:hidden border border-neutral-200 bg-white text-neutral-900 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-lg shadow-elevated"
-          >
-            <nav className="flex flex-col p-4">
-              {LINKS.map((l) =>
-                l.children ? (
-                  <div key={l.href} className="border-b border-neutral-200 last:border-0">
-                    <button
-                      onClick={() => setMobileMenu((v) => (v === l.href ? null : l.href))}
-                      className="w-full flex items-center justify-between py-3 px-2 text-base font-semibold tracking-[0.12em]"
-                      aria-expanded={mobileMenu === l.href}
-                    >
-                      <span>{l.label}</span>
-                      <ChevronDown size={16} className={cn("transition-transform shrink-0", mobileMenu === l.href && "rotate-180")} />
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {mobileMenu === l.href && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="pl-4 pb-3 flex flex-col">
-                            {l.children.map((c) => (
-                              <Link
-                                key={c.href}
-                                href={c.href}
-                                onClick={() => {
-                                  setOpen(false);
-                                  setMobileMenu(null);
-                                }}
-                                className="py-2.5 px-2 text-xs tracking-[0.12em] text-neutral-700 border-l border-neutral-200 hover:text-[#E50914] hover:border-[#E50914] transition-colors"
-                              >
-                                {c.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="py-3 px-2 text-base font-semibold tracking-[0.12em] text-neutral-900 border-b border-neutral-200 last:border-0"
-                  >
-                    {l.label}
-                  </Link>
-                )
-              )}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Kinetic full-screen menu (used for the hamburger toggle) */}
+      <SterlingGateKineticNavigation
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        links={LINKS.map((l) => ({ href: l.href, label: l.label }))}
+      />
     </>
   );
 }
